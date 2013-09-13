@@ -241,7 +241,9 @@ void init_text_layers() {
 }
 
 void display_init(AppContextRef *ctx) {
-	window_init(&window, "Root window");
+	window_init(&window, "Extra Normal");
+	window_set_fullscreen(&window, true);
+	window_set_background_color(&window, GColorWhite);
 	window_stack_push(&window, true);
 
 	init_layer_line(&AnalogueSecondLayer, &second_display_layer_update_callback);
