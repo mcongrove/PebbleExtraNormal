@@ -40,20 +40,20 @@ TextLayer HourLabelLayer1, HourLabelLayer2, HourLabelLayer3, HourLabelLayer4, Ho
 const GPathInfo HOUR_HAND_PATH_POINTS = {
 	4,
 	(GPoint[]) {
-		{-9, 0},
-		{9, 0},
-		{9, -55},
-		{-9, -55}
+		{-10, 0},
+		{10, 0},
+		{10, -55},
+		{-10, -55}
 	}
 };
 
 const GPathInfo MINUTE_HAND_PATH_POINTS = {
 	4,
-	(GPoint []) {
+	(GPoint[]) {
 		{-4, 0},
 		{4, 0},
-		{4, -70},
-		{-4, -70}
+		{4, -65},
+		{-4, -65}
 	}
 };
 
@@ -95,7 +95,7 @@ void minute_display_layer_update_callback(Layer *me, GContext* ctx) {
 	gpath_rotate_to(&AnalogueMinutePath, (TRIG_MAX_ANGLE / 360) * angle);
 
 	graphics_context_set_fill_color(ctx, GColorBlack);
-	graphics_context_set_stroke_color(ctx, GColorClear);
+	graphics_context_set_stroke_color(ctx, GColorBlack);
 	gpath_draw_filled(ctx, &AnalogueMinutePath);
 	gpath_draw_outline(ctx, &AnalogueMinutePath);
 }
@@ -106,16 +106,16 @@ void second_display_layer_update_callback(Layer *me, GContext* ctx) {
 	
 	GPoint secondHand;	
 	const GPoint center = grect_center_point(&me->bounds);
-	const int16_t secondHandLength = me->bounds.size.w / 2;
+	const int16_t secondHandLength = (me->bounds.size.w / 1.9);
 
-	int32_t second_angle = TRIG_MAX_ANGLE * t.tm_sec / 60;
+	int32_t second_angle = (TRIG_MAX_ANGLE * t.tm_sec / 60);
 	secondHand.y = (int16_t)(-cos_lookup(second_angle) * (int32_t)secondHandLength / TRIG_MAX_RATIO) + center.y;
 	secondHand.x = (int16_t)(sin_lookup(second_angle) * (int32_t)secondHandLength / TRIG_MAX_RATIO) + center.x;
 	graphics_context_set_stroke_color(ctx, GColorBlack);
 	graphics_draw_line(ctx, secondHand, center);
 
 	graphics_context_set_fill_color(ctx, GColorBlack);
-	graphics_fill_circle(ctx, grect_center_point(&me->frame), 15);
+	graphics_fill_circle(ctx, grect_center_point(&me->frame), 11);
 }
 
 void handle_second_tick(AppContextRef ctx, PebbleTickEvent *t) {
@@ -135,108 +135,108 @@ void init_text_layers() {
 	text_layer_set_text_color(&HourLabelLayer1, GColorWhite);
 	text_layer_set_background_color(&HourLabelLayer1, GColorClear);
 	text_layer_set_text_alignment(&HourLabelLayer1, GTextAlignmentLeft);
-	layer_set_frame(&HourLabelLayer1.layer, GRect(88, 29, 12, 30));
+	layer_set_frame(&HourLabelLayer1.layer, GRect(92, 31, 12, 30));
 	text_layer_set_text(&HourLabelLayer1, "1");
-	text_layer_set_font(&HourLabelLayer1, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
+	text_layer_set_font(&HourLabelLayer1, fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD));
 	layer_add_child(&window.layer, &HourLabelLayer1.layer);
 	
 	text_layer_init(&HourLabelLayer2, window.layer.frame);
 	text_layer_set_text_color(&HourLabelLayer2, GColorWhite);
 	text_layer_set_background_color(&HourLabelLayer2, GColorClear);
 	text_layer_set_text_alignment(&HourLabelLayer2, GTextAlignmentLeft);
-	layer_set_frame(&HourLabelLayer2.layer, GRect(105, 43, 12, 30));
+	layer_set_frame(&HourLabelLayer2.layer, GRect(110, 48, 12, 30));
 	text_layer_set_text(&HourLabelLayer2, "2");
-	text_layer_set_font(&HourLabelLayer2, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
+	text_layer_set_font(&HourLabelLayer2, fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD));
 	layer_add_child(&window.layer, &HourLabelLayer2.layer);
 	
 	text_layer_init(&HourLabelLayer3, window.layer.frame);
 	text_layer_set_text_color(&HourLabelLayer3, GColorWhite);
 	text_layer_set_background_color(&HourLabelLayer3, GColorClear);
 	text_layer_set_text_alignment(&HourLabelLayer3, GTextAlignmentLeft);
-	layer_set_frame(&HourLabelLayer3.layer, GRect(111, 66, 12, 30));
+	layer_set_frame(&HourLabelLayer3.layer, GRect(116, 72, 12, 30));
 	text_layer_set_text(&HourLabelLayer3, "3");
-	text_layer_set_font(&HourLabelLayer3, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
+	text_layer_set_font(&HourLabelLayer3, fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD));
 	layer_add_child(&window.layer, &HourLabelLayer3.layer);
 	
 	text_layer_init(&HourLabelLayer4, window.layer.frame);
 	text_layer_set_text_color(&HourLabelLayer4, GColorWhite);
 	text_layer_set_background_color(&HourLabelLayer4, GColorClear);
 	text_layer_set_text_alignment(&HourLabelLayer4, GTextAlignmentLeft);
-	layer_set_frame(&HourLabelLayer4.layer, GRect(102, 85, 12, 30));
+	layer_set_frame(&HourLabelLayer4.layer, GRect(108, 95, 12, 30));
 	text_layer_set_text(&HourLabelLayer4, "4");
-	text_layer_set_font(&HourLabelLayer4, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
+	text_layer_set_font(&HourLabelLayer4, fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD));
 	layer_add_child(&window.layer, &HourLabelLayer4.layer);
 	
 	text_layer_init(&HourLabelLayer5, window.layer.frame);
 	text_layer_set_text_color(&HourLabelLayer5, GColorWhite);
 	text_layer_set_background_color(&HourLabelLayer5, GColorClear);
 	text_layer_set_text_alignment(&HourLabelLayer5, GTextAlignmentLeft);
-	layer_set_frame(&HourLabelLayer5.layer, GRect(88, 101, 12, 30));
+	layer_set_frame(&HourLabelLayer5.layer, GRect(91, 112, 12, 30));
 	text_layer_set_text(&HourLabelLayer5, "5");
-	text_layer_set_font(&HourLabelLayer5, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
+	text_layer_set_font(&HourLabelLayer5, fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD));
 	layer_add_child(&window.layer, &HourLabelLayer5.layer);
 	
 	text_layer_init(&HourLabelLayer6, window.layer.frame);
 	text_layer_set_text_color(&HourLabelLayer6, GColorWhite);
 	text_layer_set_background_color(&HourLabelLayer6, GColorClear);
 	text_layer_set_text_alignment(&HourLabelLayer6, GTextAlignmentLeft);
-	layer_set_frame(&HourLabelLayer6.layer, GRect(67, 105, 12, 30));
+	layer_set_frame(&HourLabelLayer6.layer, GRect(68, 117, 12, 30));
 	text_layer_set_text(&HourLabelLayer6, "6");
-	text_layer_set_font(&HourLabelLayer6, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
+	text_layer_set_font(&HourLabelLayer6, fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD));
 	layer_add_child(&window.layer, &HourLabelLayer6.layer);
 	
 	text_layer_init(&HourLabelLayer7, window.layer.frame);
 	text_layer_set_text_color(&HourLabelLayer7, GColorWhite);
 	text_layer_set_background_color(&HourLabelLayer7, GColorClear);
 	text_layer_set_text_alignment(&HourLabelLayer7, GTextAlignmentLeft);
-	layer_set_frame(&HourLabelLayer7.layer, GRect(48, 102, 12, 30));
+	layer_set_frame(&HourLabelLayer7.layer, GRect(46, 111, 12, 30));
 	text_layer_set_text(&HourLabelLayer7, "7");
-	text_layer_set_font(&HourLabelLayer7, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
+	text_layer_set_font(&HourLabelLayer7, fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD));
 	layer_add_child(&window.layer, &HourLabelLayer7.layer);
 	
 	text_layer_init(&HourLabelLayer8, window.layer.frame);
 	text_layer_set_text_color(&HourLabelLayer8, GColorWhite);
 	text_layer_set_background_color(&HourLabelLayer8, GColorClear);
 	text_layer_set_text_alignment(&HourLabelLayer8, GTextAlignmentLeft);
-	layer_set_frame(&HourLabelLayer8.layer, GRect(31, 87, 12, 30));
+	layer_set_frame(&HourLabelLayer8.layer, GRect(28, 95, 12, 30));
 	text_layer_set_text(&HourLabelLayer8, "8");
-	text_layer_set_font(&HourLabelLayer8, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
+	text_layer_set_font(&HourLabelLayer8, fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD));
 	layer_add_child(&window.layer, &HourLabelLayer8.layer);
 	
 	text_layer_init(&HourLabelLayer9, window.layer.frame);
 	text_layer_set_text_color(&HourLabelLayer9, GColorWhite);
 	text_layer_set_background_color(&HourLabelLayer9, GColorClear);
 	text_layer_set_text_alignment(&HourLabelLayer9, GTextAlignmentLeft);
-	layer_set_frame(&HourLabelLayer9.layer, GRect(24, 66, 12, 30));
+	layer_set_frame(&HourLabelLayer9.layer, GRect(21, 72, 12, 30));
 	text_layer_set_text(&HourLabelLayer9, "9");
-	text_layer_set_font(&HourLabelLayer9, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
+	text_layer_set_font(&HourLabelLayer9, fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD));
 	layer_add_child(&window.layer, &HourLabelLayer9.layer);
 	
 	text_layer_init(&HourLabelLayer10, window.layer.frame);
 	text_layer_set_text_color(&HourLabelLayer10, GColorWhite);
 	text_layer_set_background_color(&HourLabelLayer10, GColorClear);
 	text_layer_set_text_alignment(&HourLabelLayer10, GTextAlignmentLeft);
-	layer_set_frame(&HourLabelLayer10.layer, GRect(25, 46, 25, 30));
+	layer_set_frame(&HourLabelLayer10.layer, GRect(26, 50, 25, 30));
 	text_layer_set_text(&HourLabelLayer10, "10");
-	text_layer_set_font(&HourLabelLayer10, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
+	text_layer_set_font(&HourLabelLayer10, fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD));
 	layer_add_child(&window.layer, &HourLabelLayer10.layer);
 	
 	text_layer_init(&HourLabelLayer11, window.layer.frame);
 	text_layer_set_text_color(&HourLabelLayer11, GColorWhite);
 	text_layer_set_background_color(&HourLabelLayer11, GColorClear);
 	text_layer_set_text_alignment(&HourLabelLayer11, GTextAlignmentLeft);
-	layer_set_frame(&HourLabelLayer11.layer, GRect(41, 29, 25, 30));
+	layer_set_frame(&HourLabelLayer11.layer, GRect(43, 33, 25, 30));
 	text_layer_set_text(&HourLabelLayer11, "11");
-	text_layer_set_font(&HourLabelLayer11, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
+	text_layer_set_font(&HourLabelLayer11, fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD));
 	layer_add_child(&window.layer, &HourLabelLayer11.layer);
 	
 	text_layer_init(&HourLabelLayer12, window.layer.frame);
 	text_layer_set_text_color(&HourLabelLayer12, GColorWhite);
 	text_layer_set_background_color(&HourLabelLayer12, GColorClear);
 	text_layer_set_text_alignment(&HourLabelLayer12, GTextAlignmentLeft);
-	layer_set_frame(&HourLabelLayer12.layer, GRect(61, 24, 25, 30));
+	layer_set_frame(&HourLabelLayer12.layer, GRect(64, 25, 25, 30));
 	text_layer_set_text(&HourLabelLayer12, "12");
-	text_layer_set_font(&HourLabelLayer12, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
+	text_layer_set_font(&HourLabelLayer12, fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD));
 	layer_add_child(&window.layer, &HourLabelLayer12.layer);
 }
 
