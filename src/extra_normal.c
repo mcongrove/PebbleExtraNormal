@@ -79,8 +79,8 @@ void hour_display_layer_update_callback(Layer *me, GContext* ctx) {
 	unsigned int angle = (t.tm_hour * 30) + (t.tm_min / 2);
 	gpath_rotate_to(&AnalogueHourPath, (TRIG_MAX_ANGLE / 360) * angle);
 
-	graphics_context_set_fill_color(ctx, GColorBlack);
-	graphics_context_set_stroke_color(ctx, GColorClear);
+	graphics_context_set_fill_color(ctx, GColorWhite);
+	graphics_context_set_stroke_color(ctx, GColorBlack);
 	gpath_draw_filled(ctx, &AnalogueHourPath);
 	gpath_draw_outline(ctx, &AnalogueHourPath);
 }
@@ -94,8 +94,8 @@ void minute_display_layer_update_callback(Layer *me, GContext* ctx) {
 	unsigned int angle = (t.tm_min * 6);
 	gpath_rotate_to(&AnalogueMinutePath, (TRIG_MAX_ANGLE / 360) * angle);
 
-	graphics_context_set_fill_color(ctx, GColorBlack);
-	graphics_context_set_stroke_color(ctx, GColorBlack);
+	graphics_context_set_fill_color(ctx, GColorWhite);
+	graphics_context_set_stroke_color(ctx, GColorWhite);
 	gpath_draw_filled(ctx, &AnalogueMinutePath);
 	gpath_draw_outline(ctx, &AnalogueMinutePath);
 }
@@ -111,10 +111,10 @@ void second_display_layer_update_callback(Layer *me, GContext* ctx) {
 	int32_t second_angle = (TRIG_MAX_ANGLE * t.tm_sec / 60);
 	secondHand.y = (int16_t)(-cos_lookup(second_angle) * (int32_t)secondHandLength / TRIG_MAX_RATIO) + center.y;
 	secondHand.x = (int16_t)(sin_lookup(second_angle) * (int32_t)secondHandLength / TRIG_MAX_RATIO) + center.x;
-	graphics_context_set_stroke_color(ctx, GColorBlack);
+	graphics_context_set_stroke_color(ctx, GColorWhite);
 	graphics_draw_line(ctx, secondHand, center);
 
-	graphics_context_set_fill_color(ctx, GColorBlack);
+	graphics_context_set_fill_color(ctx, GColorWhite);
 	graphics_fill_circle(ctx, grect_center_point(&me->frame), 11);
 }
 
@@ -132,7 +132,7 @@ void handle_second_tick(AppContextRef ctx, PebbleTickEvent *t) {
 
 void init_text_layers() {
 	text_layer_init(&HourLabelLayer1, window.layer.frame);
-	text_layer_set_text_color(&HourLabelLayer1, GColorWhite);
+	text_layer_set_text_color(&HourLabelLayer1, GColorBlack);
 	text_layer_set_background_color(&HourLabelLayer1, GColorClear);
 	text_layer_set_text_alignment(&HourLabelLayer1, GTextAlignmentLeft);
 	layer_set_frame(&HourLabelLayer1.layer, GRect(92, 31, 12, 30));
@@ -141,7 +141,7 @@ void init_text_layers() {
 	layer_add_child(&window.layer, &HourLabelLayer1.layer);
 	
 	text_layer_init(&HourLabelLayer2, window.layer.frame);
-	text_layer_set_text_color(&HourLabelLayer2, GColorWhite);
+	text_layer_set_text_color(&HourLabelLayer2, GColorBlack);
 	text_layer_set_background_color(&HourLabelLayer2, GColorClear);
 	text_layer_set_text_alignment(&HourLabelLayer2, GTextAlignmentLeft);
 	layer_set_frame(&HourLabelLayer2.layer, GRect(110, 48, 12, 30));
@@ -150,7 +150,7 @@ void init_text_layers() {
 	layer_add_child(&window.layer, &HourLabelLayer2.layer);
 	
 	text_layer_init(&HourLabelLayer3, window.layer.frame);
-	text_layer_set_text_color(&HourLabelLayer3, GColorWhite);
+	text_layer_set_text_color(&HourLabelLayer3, GColorBlack);
 	text_layer_set_background_color(&HourLabelLayer3, GColorClear);
 	text_layer_set_text_alignment(&HourLabelLayer3, GTextAlignmentLeft);
 	layer_set_frame(&HourLabelLayer3.layer, GRect(116, 72, 12, 30));
@@ -159,7 +159,7 @@ void init_text_layers() {
 	layer_add_child(&window.layer, &HourLabelLayer3.layer);
 	
 	text_layer_init(&HourLabelLayer4, window.layer.frame);
-	text_layer_set_text_color(&HourLabelLayer4, GColorWhite);
+	text_layer_set_text_color(&HourLabelLayer4, GColorBlack);
 	text_layer_set_background_color(&HourLabelLayer4, GColorClear);
 	text_layer_set_text_alignment(&HourLabelLayer4, GTextAlignmentLeft);
 	layer_set_frame(&HourLabelLayer4.layer, GRect(108, 95, 12, 30));
@@ -168,7 +168,7 @@ void init_text_layers() {
 	layer_add_child(&window.layer, &HourLabelLayer4.layer);
 	
 	text_layer_init(&HourLabelLayer5, window.layer.frame);
-	text_layer_set_text_color(&HourLabelLayer5, GColorWhite);
+	text_layer_set_text_color(&HourLabelLayer5, GColorBlack);
 	text_layer_set_background_color(&HourLabelLayer5, GColorClear);
 	text_layer_set_text_alignment(&HourLabelLayer5, GTextAlignmentLeft);
 	layer_set_frame(&HourLabelLayer5.layer, GRect(91, 112, 12, 30));
@@ -177,7 +177,7 @@ void init_text_layers() {
 	layer_add_child(&window.layer, &HourLabelLayer5.layer);
 	
 	text_layer_init(&HourLabelLayer6, window.layer.frame);
-	text_layer_set_text_color(&HourLabelLayer6, GColorWhite);
+	text_layer_set_text_color(&HourLabelLayer6, GColorBlack);
 	text_layer_set_background_color(&HourLabelLayer6, GColorClear);
 	text_layer_set_text_alignment(&HourLabelLayer6, GTextAlignmentLeft);
 	layer_set_frame(&HourLabelLayer6.layer, GRect(68, 117, 12, 30));
@@ -186,7 +186,7 @@ void init_text_layers() {
 	layer_add_child(&window.layer, &HourLabelLayer6.layer);
 	
 	text_layer_init(&HourLabelLayer7, window.layer.frame);
-	text_layer_set_text_color(&HourLabelLayer7, GColorWhite);
+	text_layer_set_text_color(&HourLabelLayer7, GColorBlack);
 	text_layer_set_background_color(&HourLabelLayer7, GColorClear);
 	text_layer_set_text_alignment(&HourLabelLayer7, GTextAlignmentLeft);
 	layer_set_frame(&HourLabelLayer7.layer, GRect(46, 111, 12, 30));
@@ -195,7 +195,7 @@ void init_text_layers() {
 	layer_add_child(&window.layer, &HourLabelLayer7.layer);
 	
 	text_layer_init(&HourLabelLayer8, window.layer.frame);
-	text_layer_set_text_color(&HourLabelLayer8, GColorWhite);
+	text_layer_set_text_color(&HourLabelLayer8, GColorBlack);
 	text_layer_set_background_color(&HourLabelLayer8, GColorClear);
 	text_layer_set_text_alignment(&HourLabelLayer8, GTextAlignmentLeft);
 	layer_set_frame(&HourLabelLayer8.layer, GRect(28, 95, 12, 30));
@@ -204,7 +204,7 @@ void init_text_layers() {
 	layer_add_child(&window.layer, &HourLabelLayer8.layer);
 	
 	text_layer_init(&HourLabelLayer9, window.layer.frame);
-	text_layer_set_text_color(&HourLabelLayer9, GColorWhite);
+	text_layer_set_text_color(&HourLabelLayer9, GColorBlack);
 	text_layer_set_background_color(&HourLabelLayer9, GColorClear);
 	text_layer_set_text_alignment(&HourLabelLayer9, GTextAlignmentLeft);
 	layer_set_frame(&HourLabelLayer9.layer, GRect(21, 72, 12, 30));
@@ -213,7 +213,7 @@ void init_text_layers() {
 	layer_add_child(&window.layer, &HourLabelLayer9.layer);
 	
 	text_layer_init(&HourLabelLayer10, window.layer.frame);
-	text_layer_set_text_color(&HourLabelLayer10, GColorWhite);
+	text_layer_set_text_color(&HourLabelLayer10, GColorBlack);
 	text_layer_set_background_color(&HourLabelLayer10, GColorClear);
 	text_layer_set_text_alignment(&HourLabelLayer10, GTextAlignmentLeft);
 	layer_set_frame(&HourLabelLayer10.layer, GRect(26, 50, 25, 30));
@@ -222,7 +222,7 @@ void init_text_layers() {
 	layer_add_child(&window.layer, &HourLabelLayer10.layer);
 	
 	text_layer_init(&HourLabelLayer11, window.layer.frame);
-	text_layer_set_text_color(&HourLabelLayer11, GColorWhite);
+	text_layer_set_text_color(&HourLabelLayer11, GColorBlack);
 	text_layer_set_background_color(&HourLabelLayer11, GColorClear);
 	text_layer_set_text_alignment(&HourLabelLayer11, GTextAlignmentLeft);
 	layer_set_frame(&HourLabelLayer11.layer, GRect(43, 33, 25, 30));
@@ -231,7 +231,7 @@ void init_text_layers() {
 	layer_add_child(&window.layer, &HourLabelLayer11.layer);
 	
 	text_layer_init(&HourLabelLayer12, window.layer.frame);
-	text_layer_set_text_color(&HourLabelLayer12, GColorWhite);
+	text_layer_set_text_color(&HourLabelLayer12, GColorBlack);
 	text_layer_set_background_color(&HourLabelLayer12, GColorClear);
 	text_layer_set_text_alignment(&HourLabelLayer12, GTextAlignmentLeft);
 	layer_set_frame(&HourLabelLayer12.layer, GRect(64, 25, 25, 30));
@@ -241,7 +241,9 @@ void init_text_layers() {
 }
 
 void display_init(AppContextRef *ctx) {
-	window_init(&window, "Root window");
+	window_init(&window, "Extra Normal");
+	window_set_fullscreen(&window, true);
+	window_set_background_color(&window, GColorBlack);
 	window_stack_push(&window, true);
 
 	init_layer_line(&AnalogueSecondLayer, &second_display_layer_update_callback);
