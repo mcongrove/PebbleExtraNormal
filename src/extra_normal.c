@@ -29,7 +29,7 @@
 
 #define MY_UUID { 0x00, 0xB9, 0x24, 0x31, 0x45, 0x6B, 0x4E, 0xB7, 0xB2, 0x7D, 0x4A, 0x7E, 0x36, 0xD3, 0x8D, 0x59 }
 
-PBL_APP_INFO(MY_UUID, "Extra Normal", "Matthew Congrove", 1, 0, DEFAULT_MENU_ICON, APP_INFO_WATCH_FACE);
+PBL_APP_INFO(MY_UUID, "Extra Normal", "Matthew Congrove", 1, 1, RESOURCE_ID_IMAGE_MENU_ICON, APP_INFO_WATCH_FACE);
 
 Window window;
 GRect AnalogueGRect;
@@ -257,6 +257,8 @@ void display_init(AppContextRef *ctx) {
 }
 
 void handle_init(AppContextRef ctx) {
+	resource_init_current_app(&APP_RESOURCES);
+
 	AnalogueGRect = GRect(0, 0, 144, 168);
 	
 	display_init(&ctx);
