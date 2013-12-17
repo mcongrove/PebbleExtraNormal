@@ -2,7 +2,7 @@
 
 A Pebble watch face based on the [Extra Normal](http://normaldesign.net/en/watches/watches-extra-normal) watch.
 
-![PebbleExtraNormal](https://raw.github.com/mcongrove/PebbleExtraNormal/master/watchface.jpg)
+![PebbleExtraNormal](https://raw.github.com/mcongrove/PebbleExtraNormal/master/watchface.png)
 
 ###Acknowledgements
 
