@@ -43,6 +43,12 @@ TextLayer *label_layer_9;
 TextLayer *label_layer_10;
 TextLayer *label_layer_11;
 TextLayer *label_layer_12;
+InverterLayer *inverter_layer;
+static char theme[6] = "dark";
+
+enum {
+	KEY_THEME
+};
 
 const GPathInfo HOUR_HAND_PATH_POINTS = {
 	4,
@@ -63,6 +69,35 @@ const GPathInfo MINUTE_HAND_PATH_POINTS = {
 		{-4, -65}
 	}
 };
+
+static void set_theme() {
+	if (persist_exists(KEY_THEME)) {
+		persist_read_string(KEY_THEME, theme, 6);
+	}
+	
+	APP_LOG(APP_LOG_LEVEL_INFO, "SELECTED THEME: %s", theme);
+	
+	bool hide = strcmp(theme, "light") == 0 ? true : false;
+	
+	layer_set_hidden(inverter_layer_get_layer(inverter_layer), hide);
+}
+
+static void in_received_handler(DictionaryIterator *iter, void *context) {
+	Tuple *theme_tuple = dict_find(iter, KEY_THEME);
+	
+	if (theme_tuple) {
+		APP_LOG(APP_LOG_LEVEL_INFO, "SETTING THEME: %s", theme_tuple->value->cstring);
+
+		persist_write_string(KEY_THEME, theme_tuple->value->cstring);
+		strncpy(theme, theme_tuple->value->cstring, 6);
+		
+		set_theme();
+	}
+}
+
+static void in_dropped_handler(AppMessageResult reason, void *context) {
+	
+}
 
 static void handle_second_tick(struct tm *tick_time, TimeUnits units_changed) {
 	layer_mark_dirty(second_layer);
@@ -222,6 +257,10 @@ void init_text_layers() {
 }
 
 static void init() {
+	app_message_register_inbox_received(in_received_handler);
+	app_message_register_inbox_dropped(in_dropped_handler);
+	app_message_open(64, 0);
+	
 	window = window_create();
 	window_set_background_color(window, GColorWhite);
 	window_stack_push(window, true);
@@ -251,7 +290,13 @@ static void init() {
 	layer_set_update_proc(second_layer, second_display_layer_update_callback);
 	layer_add_child(window_layer, second_layer);
 	
+	// Create the inverter layer
+	inverter_layer = inverter_layer_create(bounds);
+	layer_add_child(window_layer, inverter_layer_get_layer(inverter_layer));
+	
 	tick_timer_service_subscribe(SECOND_UNIT, handle_second_tick);
+	
+	set_theme();
 }
 
 static void deinit() {
@@ -274,6 +319,10 @@ static void deinit() {
 	text_layer_destroy(label_layer_10);
 	text_layer_destroy(label_layer_11);
 	text_layer_destroy(label_layer_12);
+	inverter_layer_destroy(inverter_layer);
+	
+	tick_timer_service_unsubscribe();
+	app_message_deregister_callbacks();
 }
 
 int main(void) {
