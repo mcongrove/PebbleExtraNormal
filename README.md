@@ -1,13 +1,9 @@
-#"Extra Normal" for Pebble
+# "Extra Normal" for Pebble
 
-A Pebble watch face based on the [Extra Normal](http://normaldesign.net/en/watches/watches-extra-normal) watch.
+A Pebble watch face based on the [Extra Normal](http://normaldesign.net/en/watches/watches-extra-normal) watch. This code is open sourced under the Apache 2.0 license.
 
-![PebbleExtraNormal](https://raw.github.com/mcongrove/PebbleExtraNormal/master/watchface.png)
+![Extra Normal](https://raw.github.com/mcongrove/PebbleExtraNormal/master/watchface.png)
 
-###Acknowledgements
+### Acknowledgements
 
 Special thanks to [Peter Hardy](http://github.com/phardy) for a good starting point during the development of this watch face.
-
-###Known Issues
-
-* Some numbers (11, 12) are a little close to one another
