@@ -28,7 +28,7 @@ TextLayer *label_layer_10;
 TextLayer *label_layer_11;
 TextLayer *label_layer_12;
 InverterLayer *inverter_layer;
-static char theme[6] = "dark";
+static char THEME[6] = "dark";
 
 enum {
 	KEY_THEME
@@ -56,12 +56,12 @@ const GPathInfo MINUTE_HAND_PATH_POINTS = {
 
 static void set_theme() {
 	if (persist_exists(KEY_THEME)) {
-		persist_read_string(KEY_THEME, theme, 6);
+		persist_read_string(KEY_THEME, THEME, 6);
 	}
 	
-	APP_LOG(APP_LOG_LEVEL_INFO, "SELECTED THEME: %s", theme);
+	APP_LOG(APP_LOG_LEVEL_INFO, "SELECTED THEME: %s", THEME);
 	
-	bool hide = strcmp(theme, "light") == 0 ? true : false;
+	bool hide = strcmp(THEME, "light") == 0 ? true : false;
 	
 	layer_set_hidden(inverter_layer_get_layer(inverter_layer), hide);
 }
@@ -73,7 +73,7 @@ static void in_received_handler(DictionaryIterator *iter, void *context) {
 		APP_LOG(APP_LOG_LEVEL_INFO, "SETTING THEME: %s", theme_tuple->value->cstring);
 
 		persist_write_string(KEY_THEME, theme_tuple->value->cstring);
-		strncpy(theme, theme_tuple->value->cstring, 6);
+		strncpy(THEME, theme_tuple->value->cstring, 6);
 		
 		set_theme();
 	}

@@ -5,7 +5,7 @@ Pebble.addEventListener("ready", function(e) {
 Pebble.addEventListener("showConfiguration", function(e) {
 	var options = JSON.parse(window.localStorage.getItem("options"));
 	
-	var url = "http://sens.li/extra-normal/?" +
+	var url = "http://wearewearable.com/extra-normal/?" +
 			  "theme=" + encodeURIComponent(options["0"]);
 	
 	Pebble.openURL(url);
